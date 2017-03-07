@@ -1,0 +1,19 @@
+---
+  - name: yum update
+    become: yes
+    shell: yum -y update
+
+  - name: install basic packages
+    become: yes
+    yum: name={{ item }} state=present
+    with_items:
+      - gcc
+      - make
+      - nc
+      - openssl-devel
+      - curl-devel
+      - expat-devel
+      - gettext-devel
+      - openssl-devel
+      - zlib-devel
+      - perl-ExtUtils-MakeMaker

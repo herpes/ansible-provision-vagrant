@@ -1,0 +1,12 @@
+---
+user: "vagrant"
+home: "/home/vagrant"
+bin_dir: "/usr/local/bin"
+src_dir: "/home/vagrant/src"
+
+git_ver: "2.5.0"
+ruby_ver: "2.4.0"
+python_ver: "3.6.0"
+
+http_proxy: "http://{proxy:port}"
+https_proxy: "http://{proxy:port}"

@@ -1,0 +1,44 @@
+---
+  - name: download rbenv
+    git:
+      repo: https://github.com/sstephenson/rbenv.git
+      dest: ~/.rbenv
+
+  - name: download rbnev-build
+    git:
+      repo: https://github.com/sstephenson/ruby-build.git
+      dest: ~/.rbenv/plugins/ruby-build
+
+  - name: mod PATH for rbenv
+    lineinfile:
+      dest: "{{ home }}/.zshrc"
+      state: absent
+      line: export PATH="$HOME/.rbenv/bin:$PATH"
+
+  - name: set .zshrc for rbenv init
+    lineinfile:
+      dest: "{{ home }}/.zshrc"
+      state: absent
+      line: eval "$(rbenv init -)"
+
+  - name: reload shell
+    shell: eval $SHELL -l
+
+  - name: install ruby
+    command: "{{ home }}/.rbenv/bin/rbenv install {{ ruby_ver }}"
+    register: command_result
+    failed_when: "'FAILED' in command_result.stderr"
+
+  - name: set default ruby version
+    command: "{{ home }}/.rbenv/bin/rbenv global {{ ruby_ver }}"
+
+  - name: set .gemrc
+    copy:
+      src: files/.gemrc
+      dest: "{{ home }}/.gemrc"
+
+  - name: gem install
+    gem: name={{ item }} executable={{ home }}/.rbenv/shims/gem user_install=False
+    with_items:
+      - bundler
+      - pry

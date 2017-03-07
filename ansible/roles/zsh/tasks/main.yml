@@ -1,0 +1,8 @@
+---
+  - name: install zsh
+    become: yes
+    yum: name=zsh state=latest
+
+  - name: set zsh as default shell
+    become: yes
+    shell: chsh -s /bin/zsh vagrant

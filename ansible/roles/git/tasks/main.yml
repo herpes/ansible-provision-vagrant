@@ -1,0 +1,40 @@
+---
+  - name: download git source
+    get_url:
+      url: https://www.kernel.org/pub/software/scm/git/git-{{ git_ver }}.tar.gz
+      dest: "{{ src_dir }}/git-{{ git_ver }}.tar.gz"
+      validate_certs: no
+    tags:
+      - git
+
+  - name: extract git source
+    unarchive:
+      src="{{ src_dir }}/git-{{ git_ver }}.tar.gz"
+      dest="{{ src_dir }}"
+      copy=no
+    tags:
+      - git
+
+  - name: install git
+    shell: >
+      {{ item }}
+      chdir="{{ src_dir }}/git-{{ git_ver }}"
+    with_items:
+     - ./configure --prefix=/usr/local/
+     -  make
+    tags:
+      - git
+
+  - name: make install git
+    become: yes
+    shell: make install
+    args:
+      chdir: "{{ src_dir }}/git-{{ git_ver }}"
+    tags:
+      - git
+
+  - name: copy .gitconfig
+    copy:
+      src: files/.gitconfig
+      dest: "{{ home }}/.gitconfig"
+      force: no
