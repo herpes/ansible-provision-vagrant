@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
 
-export http_proxy="http://{proxy:port}"
-export https_proxy="http://{proxy:port}"
+#######################
+# config
+#######################
 
-sudo pkill yum
-sudo sh -c "echo 'proxy=http://{proxy:port}' >> /etc/yum.conf"
+# プロキシを使用する場合、trueを設定
+use_proxy=true
+
+if [ $use_proxy = true ]; then
+  export http_proxy="http://{proxy:port}"
+  export https_proxy="http://{proxy:port}"
+  sudo sh -c "echo 'proxy=http://{proxy:port}' >> /etc/yum.conf"
+fi
 
 if ! [ `which ansible` ]; then
   sudo yum install -y epel-release

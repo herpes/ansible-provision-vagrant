@@ -10,7 +10,13 @@ $ cd ~/vagrants/
 $ git clone https://github.com/herpes/ansible-provision-vagrant.git
 ```
 
-プロキシ設定を書き換える
+プロキシの使用しない場合、環境変数を変更する
+```
+sed -ie 's/use_proxy=true/use_proxy=false/g' provision.sh
+sed -ie 's/use_proxy: true/use_proxy: false/g' ansible/group_vars/all.yml
+```
+
+プロキシを使用する場合、IPアドレス、ポート番号を書き換える
 
 ```
 sed -ie 's/{proxy:port}/12.34.56.78:8080/g' provision.sh

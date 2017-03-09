@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.network :private_network, ip: "192.168.33.10"
+  #config.vm.network :forwarded_port, guest: 22, host: 22222, id: "ssh"
   config.vm.provision "shell", path: "provision.sh", privileged: false
   config.vm.synced_folder ".", "/vagrant", mount_options: ['dmode=775', 'fmode=664']
 end

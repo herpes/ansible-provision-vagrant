@@ -8,6 +8,7 @@
       state: absent
       regexp: '^http_proxy'
       line: 'http_proxy="{{ http_proxy }}"'
+    when: use_proxy == true
 
   - name: set https_proxy
     lineinfile:
@@ -15,6 +16,7 @@
       state: absent
       regexp: '^https_proxy'
       line: 'https_proxy="{{ https_proxy }}"'
+    when: use_proxy == true
 
   - name: set locale
     become: yes
