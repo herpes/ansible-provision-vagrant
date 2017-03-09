@@ -1,8 +1,17 @@
 ---
   - name: install zsh
     become: yes
-    yum: name=zsh state=latest
+    yum: name=zsh state=present
 
   - name: set zsh as default shell
     become: yes
     shell: chsh -s /bin/zsh vagrant
+
+  - name: clone .zshrc
+    git:
+      repo: https://gist.github.com/c0763240673222f77ec59ce8c7c1c372.git
+      dest: "{{ src_dir }}/zshrc"
+      force: yes
+
+  - name: move .zshrc
+    shell: "mv {{ src_dir }}/zshrc/.zshrc ~"
