@@ -7,19 +7,19 @@
   - name: mod PATH for pyenv 01
     lineinfile:
       dest: "{{ home }}/.zshrc"
-      state: absent
+      state: present
       line: export PYENV_ROOT=$HOME/.pyenv
 
   - name: mod PATH for pyenv 02
     lineinfile:
       dest: "{{ home }}/.zshrc"
-      state: absent
+      state: present
       line: export PATH=$PYENV_ROOT/bin:$PATH
 
   - name: set .zshrc for pyenv init
     lineinfile:
       dest: "{{ home }}/.zshrc"
-      state: absent
+      state: present
       line: eval "$(pyenv init -)"
 
   - name: reload shell
