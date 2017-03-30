@@ -12,13 +12,13 @@
   - name: mod PATH for rbenv
     lineinfile:
       dest: "{{ home }}/.zshrc"
-      state: absent
+      state: present
       line: export PATH="$HOME/.rbenv/bin:$PATH"
 
   - name: set .zshrc for rbenv init
     lineinfile:
       dest: "{{ home }}/.zshrc"
-      state: absent
+      state: present
       line: eval "$(rbenv init -)"
 
   - name: reload shell
