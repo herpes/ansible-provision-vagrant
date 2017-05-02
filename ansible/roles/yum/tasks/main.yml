@@ -1,7 +1,7 @@
 ---
   - name: yum update
     become: yes
-    shell: yum -y update
+    yum: name=* state=latest
 
   - name: install basic packages
     become: yes
@@ -19,3 +19,4 @@
       - bzip2
       - readline-devel
       - perl-ExtUtils-MakeMaker
+      - vim

@@ -5,7 +5,7 @@
 
   - name: set zsh as default shell
     become: yes
-    shell: chsh -s /bin/zsh vagrant
+    shell: "chsh -s /bin/zsh {{ user }}"
 
   - name: clone .zshrc
     git:
@@ -15,3 +15,17 @@
 
   - name: move .zshrc
     shell: "mv {{ src_dir }}/zshrc/.zshrc ~"
+
+  - name: set http_proxy
+    lineinfile:
+      dest: "{{ home }}/.zshrc"
+      regexp: '^export HTTP_PROXY'
+      line: 'export HTTP_PROXY="{{ http_proxy }}"'
+    when: use_proxy == true
+
+  - name: set https_proxy
+    lineinfile:
+      dest: "{{ home }}/.zshrc"
+      regexp: '^export HTTPS_PROXY'
+      line: 'export HTTPS_PROXY="{{ https_proxy }}"'
+    when: use_proxy == true

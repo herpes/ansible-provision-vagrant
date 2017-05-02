@@ -2,22 +2,6 @@
   - name: create directory
     shell: mkdir -p {{ src_dir }}
 
-  - name: set http_proxy
-    lineinfile:
-      dest: /home/vagrant/.zshrc
-      state: absent
-      regexp: '^http_proxy'
-      line: 'http_proxy="{{ http_proxy }}"'
-    when: use_proxy == true
-
-  - name: set https_proxy
-    lineinfile:
-      dest: /home/vagrant/.zshrc
-      state: absent
-      regexp: '^https_proxy'
-      line: 'https_proxy="{{ https_proxy }}"'
-    when: use_proxy == true
-
   - name: set locale
     become: yes
     shell: localectl set-locale LANG=ja_JP.utf-8
